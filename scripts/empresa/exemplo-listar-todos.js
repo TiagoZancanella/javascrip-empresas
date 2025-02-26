@@ -17,20 +17,20 @@ function atribuirCliqueBotoesApagar() {
 async function apagar(evento) {
     // evento é uma variavel que fica disponível quando ocorre o clique do botão, poderia ser qualquer nome no lugar de evento
     //utilizaremos o evento para saber qual botão que ocorreu o  clique
-    
+
     //obter o botão que ocorreu o click do evento
     const botaoClique = evento.target;
-    
-    
+
+
     // data são atributos(variaveis) colocados no html, para podermos ter acesso no javascrip
     // neste cenário colocamos data-id e data-nome, para podemos apresentar para o usuário o que ele estpa apagando
-    
+
     const nome = botaoClique.getAttribute("data-nome");
     const id = botaoClique.getAttribute("data-id");
     ;
-    
-    
-        Swal.fire({
+
+
+    Swal.fire({
         title: `Deseja apagar o cadastro da empresa '${nome}'?`,
         text: "Você não poderá reverter isso!",
         icon: "warning",
@@ -50,9 +50,9 @@ async function apagar(evento) {
 async function apagarEmpresa(id) {
     let url = `${urlAPI}/api/v1/empresa/${id}`
     console.log(url);
-    
-    const resposta = await fetch(url, {method: "DELETE"});
-    if(resposta.ok == false){
+
+    const resposta = await fetch(url, { method: "DELETE" });
+    if (resposta.ok == false) {
         alert("Não foi possível apagar");
         return;
     }
@@ -97,7 +97,7 @@ async function consultarEmpresas() {
 
         tbody.appendChild(linha);
 
-        console.log(empresa);    
+        console.log(empresa);
     });
 
     atribuirCliqueBotoesApagar();
