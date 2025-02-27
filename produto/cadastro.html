@@ -13,7 +13,7 @@
 <body>
     <header class="bg-success p-2">
         <a href="/index.html" class="btn btn-primary">  <i class="fas fa-home"></i> Home</a>
-        <a href="/empresa/index.html" class="btn btn-primary">  <i class="fas fa-building"></i> Empresa</a>
+        <a href="/produto/index.html" class="btn btn-primary">  <i class="fas fa-building"></i> Produto</a>
     </header>
 
     <div class="text-center"></div>
@@ -32,7 +32,20 @@
 
         <div>
             <label for="campoCategoria" class="form-label">Categoria</label>
-            <input type="text" id="campoCategoria" class="form-control">
+            <!-- <input type="text" id="campoCategoria" class="form-control"> -->
+            <select class="form-select form-select-sm" aria-label="Small select example">
+                <option selected>Selecione...</option>
+                <option value="1">Acessórios</option>
+                <option value="2">Eletrodomésticos</option>
+                <option value="3">Eletronicos</option>
+                <option value="4">Informatica</option>
+                <option value="5">Móveis</option>
+              </select>
+
+
+
+
+
         </div>
         <div class="text-end mt-2">
             <button class="btn btn-success" id="btn-salvar"><i class="fas fa-floppy-disk"></i> Salvar</button>
