@@ -1,5 +1,5 @@
-let tabelaEmpresas = document.getElementById("tabela-empresas");
-let botaoConsultarEmpresas = document.getElementById("consultar-empresas");
+let tabelaProdutos = document.getElementById("tabela-produtos");
+let botaoConsultarProduto = document.getElementById("consultar-produtos");
 
 let urlAPI = "https://public.franciscosensaulas.com"
 
@@ -31,7 +31,7 @@ async function apagar(evento) {
 
 
     Swal.fire({
-        title: `Deseja apagar o cadastro da empresa '${nome}'?`,
+        title: `Deseja apagar o cadastro do produto '${nome}'?`,
         text: "Você não poderá reverter isso!",
         icon: "warning",
         showCancelButton: true,
@@ -42,13 +42,13 @@ async function apagar(evento) {
         reverseButtons: true
     }).then((result) => {
         if (result.isConfirmed) {
-            apagarEmpresa(id);
+            apagarProduto(id);
         }
     });
 }
 
-async function apagarEmpresa(id) {
-    let url = `${urlAPI}/api/v1/empresa/${id}`
+async function apagarProduto(id) {
+    let url = `${urlAPI}/api/v1/empresa/produto/${id}`
     console.log(url);
 
     const resposta = await fetch(url, { method: "DELETE" });
@@ -62,14 +62,14 @@ async function apagarEmpresa(id) {
         text: "Empresa removida com sucesso!",
         icon: "success"
     });
-    consultarEmpresas();
+    consultarProduto();
 }
 
 // Função responsável por fazer o request(requisição) para carregar os dados da empresa
-async function consultarEmpresas() {
+async function consultarProduto() {
     // debugger;
     // let url = urlAPI + "/api/v1/empresa"
-    let url = `${urlAPI}/api/v1/empresa`
+    let url = `${urlAPI}/api/v1/empresa/produtos`
     // fetch vai realizar a requisição, na variável resposta teremos os dados do response como: status, response em si(dados que o back-end retornou)  
     const resposta = await fetch(url);
     // Verificar se a requisição falhou por algum motivo
@@ -78,32 +78,32 @@ async function consultarEmpresas() {
     }
 
     // Obter o response da requisição, que neste cenário será uma lista de objetos
-    const empresas = await resposta.json();
+    const produto = await resposta.json();
 
-    let tbody = tabelaEmpresas.querySelector("tbody");
+    let tbody = tabelaProdutos.querySelector("tbody");
     tbody.innerHTML = "";
 
-    empresas.forEach(empresa => {
+    produto.forEach(produto => {
         const colunas = `
-        <td>${empresa.id}</td>
-        <td>${empresa.nome}</td>
-        <td>${empresa.cnpj}</td>
+        <td>${produto.id}</td>
+        <td>${produto.nome}</td>
+        <td>${produto.preco}</td>
         <td>
-        <a href="editar.html?id=${empresa.id}" class="btn btn-warning"><i class="fas fa-pencil"></i> Editar</a>
-        <button class="btn btn-danger botao-apagar" data-id="${empresa.id}" data-nome="${empresa.nome}"><i class="fas fa-trash"></i> Apagar</button>
+        <a href="editar.html?id=${produto.id}" class="btn btn-warning"><i class="fas fa-pencil"></i> Editar</a>
+        <button class="btn btn-danger botao-apagar" data-id="${produto.id}" data-nome="${produto.nome}"><i class="fas fa-trash"></i> Apagar</button>
         </td>`
         const linha = document.createElement("tr");
         linha.innerHTML = colunas;
 
         tbody.appendChild(linha);
 
-        console.log(empresa);
+        console.log(produto);
     });
 
     atribuirCliqueBotoesApagar();
 
 }
-botaoConsultarEmpresas.addEventListener("click", consultarEmpresas);
+botaoConsultarProduto.addEventListener("click", consultarProduto);
 
 //carregar os registros na tabela
-consultarEmpresas();
+consultarProduto();
