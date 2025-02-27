@@ -1,5 +1,5 @@
-let tabelaProdutos = document.getElementById("tabela-produtos");
-let botaoConsultarProduto = document.getElementById("consultar-produtos");
+let tabelaProdutos = document.getElementById("tabelaProdutos");
+let botaoConsultarProduto = document.getElementById("cosultarProdutos");
 
 let urlAPI = "https://public.franciscosensaulas.com"
 
