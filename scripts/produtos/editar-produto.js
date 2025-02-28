@@ -1,59 +1,47 @@
-const campoNome = document.getElementById('campoNome');
-const campoCnpj = document.getElementById('campoCNPJ')
-const mascara = {
-    mask: "00.000.000/0000-00"
-};
-const mask = IMask(campoCnpj, mascara);
-
-
-// https => protocolo
-// dominio => franciscosensaulas.com 
-// porta => 2000
-// recurso => /api/v1/empresa
-// query_params (variáveis) => id (valor do id é 20)
-// http://franciscosensaulas.com:2000/api/v1/empresa?id=20
-
+const urlAPI = "https://public.franciscosensaulas.com"
 const url = new URL(window.location.href);
 const params = new URLSearchParams(url.search);
 const idParaEditar = params.get("id");
-const urlAPI = "https://public.franciscosensaulas.com"
 
-async function consultarDadosEmpresaPorId() {
-    const urlParaConsultarEmpresa = `${urlAPI}/api/v1/empresa/${idParaEditar}`
-    console.log(urlParaConsultarEmpresa);
+const campoNomeProduto = document.getElementById('campoNomeProduto');
+const campoPrecoProduto = document.getElementById('campoPrecoProduto');
+const campoCategoria = document.getElementById('campoCategoria')
 
-    const resposta = await fetch(urlParaConsultarEmpresa);
+async function consultarDadosProdutoPorId() {
+    const urlParaConsultarProduto = `${urlAPI}/api/v1/empresa/produtos/${idParaEditar}`
+    console.log(urlParaConsultarProduto);
+
+    const resposta = await fetch(urlParaConsultarProduto);
     if (resposta.ok == false) {
-        alert("Empresa não encontrada");
-        window.location.href = "/exemplo-requisicoes.html";
+        alert("Produto não encontrado");
+        window.location.href = "/produto/editar.html";
         return
     }
 
-    const dadosEmpresa = await resposta.json();
-    console.log(dadosEmpresa);
+    const dadosProduto = await resposta.json();
+    console.log(dadosProduto);
 
-    campoNome.value = dadosEmpresa.nome;
-    campoCnpj.value = dadosEmpresa.cnpj;
-
-
-
+    campoNomeProduto.value = dadosProduto.nome;
+    campoPrecoProduto.value = dadosProduto.preco;
+    campoCategoria.value = dadosProduto.categoria
 
 }
-
 
 async function editar(evento) {
     evento.preventDefault();
 
 
-    let cnpj = campoCnpj.value;
-    let nome = campoNome.value;
+    let nome = campoNomeProduto.value;
+    let preco = campoPrecoProduto.value;
+    let categoria = campoCategoria.value;
 
     const dados = {
         nome: nome,
-        cnpj: cnpj
+        preco: preco,
+        categoria: categoria
     }
 
-    let url = `${urlAPI}/api/v1/empresa/${idParaEditar}`;
+    let url = `${urlAPI}/api/v1/empresa/produtos/${idParaEditar}`;
     const resposta = await fetch(url, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -63,7 +51,7 @@ async function editar(evento) {
     if (resposta.ok == false) {
         alert("não foi possivel alterar")
     } else {
-        location.href = '/empresa/index.html';
+        location.href = '/produto/index.html'
     }
 
 }
@@ -77,4 +65,4 @@ async function editar(evento) {
 const botaoEditar = document.getElementById("botaoAlterar");
 botaoEditar.addEventListener("click", editar);
 
-consultarDadosEmpresaPorId();
+consultarDadosProdutoPorId();

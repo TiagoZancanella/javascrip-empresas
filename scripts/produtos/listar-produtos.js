@@ -48,7 +48,7 @@ async function apagar(evento) {
 }
 
 async function apagarProduto(id) {
-    let url = `${urlAPI}/api/v1/empresa/produto/${id}`
+    let url = `${urlAPI}/api/v1/empresa/produtos/${id}`
     console.log(url);
 
     const resposta = await fetch(url, { method: "DELETE" });
@@ -69,7 +69,7 @@ async function apagarProduto(id) {
 async function consultarProduto() {
     // debugger;
     // let url = urlAPI + "/api/v1/empresa"
-    let url = `${urlAPI}/api/v1/empresa/produtos`
+    let url = `${urlAPI}/api/v1/empresa/produtos`   
     // fetch vai realizar a requisição, na variável resposta teremos os dados do response como: status, response em si(dados que o back-end retornou)  
     const resposta = await fetch(url);
     // Verificar se a requisição falhou por algum motivo

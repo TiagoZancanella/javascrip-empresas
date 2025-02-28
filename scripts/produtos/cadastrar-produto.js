@@ -3,11 +3,8 @@ let urlAPI = "https://public.franciscosensaulas.com";
 
 const campoNomeProduto = document.getElementById('campoNomeProduto');
 const campoPreco = document.getElementById("campoPreco");
-const campoSelect = document.getElementById("campoSelect")
-// const mascara = {
-//     mask: "00.000.000/0000-00"
-// };
-// const mask = IMask(campoNomeProduto, mascara);
+const campoCategoria = document.getElementById("campoCategoria")
+
 
 
 let botaoSalvar = document.getElementById("btn-salvar");
@@ -19,8 +16,8 @@ async function salvar(e) {
 
     let nome = campoNomeProduto.value; // Obtém o valor do nome
     let preco = campoPreco.value; // Obtém o valor do preço
-    let categoria = campoSelect.value; //Obtém o ID da categoria selecionada
-    
+    let categoria = campoCategoria.value; //Obtém o ID da categoria selecionada
+
 
 
 
@@ -40,15 +37,15 @@ async function salvar(e) {
     const dados = {
         nome: nome,
         preco: preco,
-        categoria : categoria
+        categoria: categoria
     }
 
 
 
 
 
-    let url = `${urlAPI}/api/v1/empresa/produtos` ;
-    const resposta = await fetch(url, { 
+    let url = `${urlAPI}/api/v1/empresa/produtos`;
+    const resposta = await fetch(url, {
         method: "post",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(dados)
@@ -57,9 +54,7 @@ async function salvar(e) {
     if (resposta.ok == false) {
         alert("não foi possivel cadastrar")
     } else {
-        location.href ='produto/index.html'
+        location.href = '/produto/index.html'
+        
     }
-
-
-
-} 
+}
